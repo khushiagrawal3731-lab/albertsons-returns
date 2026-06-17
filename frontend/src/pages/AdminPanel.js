@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -33,11 +34,11 @@ export default function AdminPanel() {
     } catch (err) { alert(err.response?.data?.error || 'Error'); }
   };
 
-  if (loading) return <div className="card">Loading...</div>;
+  if (loading) return <div className="container">Loading...</div>;
 
   return (
-    <div>
-      <h1 className="page-title">Admin Panel 🛠️</h1>
+    <div className="container">
+      <h2 className="page-title">Admin Panel 🛠️</h2>
       {analytics && (
         <div className="stats-grid">
           <div className="stat-card"><h2>{analytics.total}</h2><p>Total Returns</p></div>
@@ -53,13 +54,15 @@ export default function AdminPanel() {
         ) : (
           <table>
             <thead>
-              <tr><th>Customer</th><th>Order</th><th>Reason</th><th>Condition</th><th>Date</th><th>Status</th><th>Action</th></tr>
+              <tr>
+                <th>Customer</th><th>Order</th><th>Reason</th><th>Condition</th><th>Date</th><th>Status</th><th>Action</th>
+              </tr>
             </thead>
             <tbody>
               {returns.map(r => (
                 <tr key={r.id}>
-                  <td><strong>{r.customer_name}</strong><br /><small>{r.customer_email}</small></td>
-                  <td>{r.order_number}<br /><small>${r.total_amount}</small></td>
+                  <td><strong>{r.customer_name}</strong><br/>{r.customer_email}</td>
+                  <td>{r.order_number}<br/>${r.total_amount}</td>
                   <td>{r.reason?.replace('_', ' ')}</td>
                   <td>{r.item_condition}</td>
                   <td>{new Date(r.created_at).toLocaleDateString()}</td>
